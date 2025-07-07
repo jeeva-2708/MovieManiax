@@ -1,0 +1,20 @@
+//Trending movie
+https://api.themoviedb.org/3/trending/all/day
+
+//Now playing
+https://api.themoviedb.org/3/movie/now_playing
+
+//Popular
+https://api.themoviedb.org/3/movie/popular
+
+//Top Rated
+https://api.themoviedb.org/3/movie/top_rated
+
+//Up coming
+https://api.themoviedb.org/3/movie/upcoming
+
+//All movies
+https://api.themoviedb.org/3/discover/movie
+
+//All TvShows
+https://api.themoviedb.org/3/discover/tv
