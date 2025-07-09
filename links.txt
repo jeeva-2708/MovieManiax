@@ -4,11 +4,18 @@ https://api.themoviedb.org/3/trending/all/day
 //Now playing
 https://api.themoviedb.org/3/movie/now_playing
 
-//Popular
+//Popular movie
 https://api.themoviedb.org/3/movie/popular
 
-//Top Rated
+//Popular TvShow
+https://api.themoviedb.org/3/tv/popular
+
+//Top Rated Movie
 https://api.themoviedb.org/3/movie/top_rated
+
+//Top Rated TvShow
+https://api.themoviedb.org/3/tv/top_rated
+
 
 //Up coming
 https://api.themoviedb.org/3/movie/upcoming
@@ -17,4 +24,7 @@ https://api.themoviedb.org/3/movie/upcoming
 https://api.themoviedb.org/3/discover/movie
 
 //All TvShows
+https://api.themoviedb.org/3/discover/tv
+
+//Main Section
 https://api.themoviedb.org/3/discover/tv

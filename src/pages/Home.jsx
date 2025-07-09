@@ -13,22 +13,35 @@ import {
 import Card from "@/components/Card";
 
 const Home = () => {
-  const endPoints = {
-    trending: "/trending/all/day",
-    popular: "/movie/popular",
-    topRated: "/movie/top_rated",
-  };
+  const [trendingEndpoint, setTrendingEndpoint] = useState("/trending/all/day");
+  const [popularEndpoint, setPopularEndpoint] = useState("/movie/popular");
+  const [topRatedEndpoint, setTopRatedEndpoint] = useState("/movie/top_rated");
 
-const [selected , setSelected] = useState("")
- 
-  
+  const { data: mainSec } = useFetch("/discover/movie");
+  const { data: trending } = useFetch(trendingEndpoint);
+  const { data: popular } = useFetch(popularEndpoint);
+  const { data: topRated } = useFetch(topRatedEndpoint);
+
+  const [selected, setSelected] = useState({
+    Trending: "Day",
+    Popular: "Movie",
+    "Top Rated": "Movie",
+  });
+
   const [image, setImage] = useState();
   const [randomMovie, setRandomMovie] = useState();
 
-  const { data: trending } = useFetch(endPoints.trending);
-
-  const { data: popular } = useFetch(endPoints.popular);
-  const { data: topRated } = useFetch(endPoints.topRated);
+  useEffect(() => {
+    setTrendingEndpoint(
+      selected.Trending === "Day" ? "/trending/all/day" : "/trending/all/week"
+    );
+    setPopularEndpoint(
+      selected.Popular === "Movie" ? "/movie/popular" : "/tv/popular"
+    );
+    setTopRatedEndpoint(
+      selected["Top Rated"] === "Movie" ? "/movie/top_rated" : "/tv/top_rated"
+    );
+  }, [selected]);
 
   const allCarousel = [
     {
@@ -55,12 +68,12 @@ const [selected , setSelected] = useState("")
   ];
 
   useEffect(() => {
-    if (trending.length === 0) return;
+    if (mainSec.length === 0) return;
 
     // for run immediately
 
     function randomImage() {
-      const random = trending[Math.floor(Math.random() * trending.length)];
+      const random = mainSec[Math.floor(Math.random() * mainSec.length)];
       setRandomMovie(random);
       setImage(`https://image.tmdb.org/t/p/original/${random.backdrop_path}`);
     }
@@ -68,23 +81,19 @@ const [selected , setSelected] = useState("")
 
     // then runs continuesly
     const interval = setInterval(() => {
-      const random = trending[Math.floor(Math.random() * trending.length)];
+      const random = mainSec[Math.floor(Math.random() * mainSec.length)];
       setRandomMovie(random);
       setImage(`https://image.tmdb.org/t/p/original/${random.backdrop_path}`);
     }, 60000);
     return () => clearInterval(interval);
-  }, [trending]);
-
-
-
-  
+  }, [mainSec]);
 
   return (
     <>
       {/* main section */}
       <section className="w-full min-h-[600px]">
         <div
-          className="relative bg-cover bg-center w-full min-h-[600px]"
+          className="relative bg-cover  bg-center  w-full min-h-[600px]"
           style={{
             backgroundImage: `url(${image})`,
           }}
@@ -123,13 +132,18 @@ const [selected , setSelected] = useState("")
                   type="single"
                   size="lg"
                   onValueChange={(value) => {
-                    if (value) setSelected(value);
+                    if (!value) return;
+
+                    setSelected((prev) => ({
+                      ...prev,
+                      [items.name]: value,
+                    }));
                   }}
                 >
-                  <ToggleGroupItem value={items.buttonNameOne} >
+                  <ToggleGroupItem value={items.buttonNameOne}>
                     {items.buttonNameOne}
                   </ToggleGroupItem>
-                  <ToggleGroupItem value={items.buttonNameTwo} >
+                  <ToggleGroupItem value={items.buttonNameTwo}>
                     {items.buttonNameTwo}
                   </ToggleGroupItem>
                 </ToggleGroup>
