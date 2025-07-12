@@ -50,12 +50,12 @@ const Card = ({ movie }) => {
                 (item) => item.id === movieGenreId
               );
               return matchedGenre ? (
-                <span className="bg-[#000000] text-[#F5F5F5] text-xs p-1 lg:font-medium   rounded-md  whitespace-nowrap" key={matchedGenre.id}>{matchedGenre.name}</span>
+                <span className="bg-[#000000] text-[#F5F5F5] text-[11px] p-1 lg:font-medium   rounded-md  whitespace-nowrap" key={matchedGenre.id}>{matchedGenre.name}</span>
               ) : null;
             })}
           </div>
           <div className="lg:flex justify-between text-xs lg:pl-1">
-            <div className="text-[#F5F5F5] italic text-[10px] pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
+            <div className="text-[#F5F5F5] italic text-[10px] lg:text-xs pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
             <div className="hidden lg:flex items-center gap-1"><span><img src={Star} alt="" /></span><span>{vote_average.toFixed(1)}/10</span></div>
           </div>
           
