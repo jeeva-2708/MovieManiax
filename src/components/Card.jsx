@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import GenreContext from "../context/GenreContext";
+import Star from "@/assets/Star.svg"
 
 const Card = ({ movie }) => {
   const { id, title, name, poster_path, genre_ids, overview, first_air_date, release_date, vote_average } = movie;
@@ -55,7 +56,7 @@ const Card = ({ movie }) => {
           </div>
           <div className="lg:flex justify-between text-xs lg:pl-1">
             <div className="text-[#F5F5F5] italic text-xs pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
-            <div className="hidden lg:flex items-center gap-1"><span><img src="src\assets\Star.svg" alt="" /></span><span>{vote_average.toFixed(1)}/10</span></div>
+            <div className="hidden lg:flex items-center gap-1"><span><img src={Star} alt="" /></span><span>{vote_average.toFixed(1)}/10</span></div>
           </div>
           
         </div>
