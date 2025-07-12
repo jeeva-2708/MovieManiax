@@ -55,7 +55,7 @@ const Card = ({ movie }) => {
             })}
           </div>
           <div className="lg:flex justify-between text-xs lg:pl-1">
-            <div className="text-[#F5F5F5] italic text-xs pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
+            <div className="text-[#F5F5F5] italic text-[10px] pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
             <div className="hidden lg:flex items-center gap-1"><span><img src={Star} alt="" /></span><span>{vote_average.toFixed(1)}/10</span></div>
           </div>
           
