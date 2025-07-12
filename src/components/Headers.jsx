@@ -1,11 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
-import "flowbite";
+import { initFlowbite } from 'flowbite';
 
 const Headers = () => {
   const active =
     "block py-2 px-3  text-[#4F46E5] rounded-sm  md:p-0 ";
   const inActive =
     "block py-2 px-3 text-white rounded-sm hover:text-[#4f46e5] md:p-0 ";
+
+    function Navbar() {
+  useEffect(() => {
+    initFlowbite();
+  }, []);
 
   const navThings = [
     {
@@ -129,5 +134,6 @@ const Headers = () => {
     </div>
   );
 };
+}
 
 export default Headers;
