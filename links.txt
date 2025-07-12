@@ -1,5 +1,5 @@
 //Trending movie
-https://api.themoviedb.org/3/trending/all/day
+https://api.themoviedb.org/3/trending/movie/day
 
 //Now playing
 https://api.themoviedb.org/3/movie/now_playing

@@ -13,7 +13,7 @@ import {
 import Card from "@/components/Card";
 
 const Home = () => {
-  const [trendingEndpoint, setTrendingEndpoint] = useState("/trending/all/day");
+  const [trendingEndpoint, setTrendingEndpoint] = useState("/trending/movie/day");
   const [popularEndpoint, setPopularEndpoint] = useState("/movie/popular");
   const [topRatedEndpoint, setTopRatedEndpoint] = useState("/movie/top_rated");
 
@@ -33,7 +33,7 @@ const Home = () => {
 
   useEffect(() => {
     setTrendingEndpoint(
-      selected.Trending === "Day" ? "/trending/all/day" : "/trending/all/week"
+      selected.Trending === "Day" ? "/trending/movie/day" : "/trending/movie/week"
     );
     setPopularEndpoint(
       selected.Popular === "Movie" ? "/movie/popular" : "/tv/popular"
@@ -93,7 +93,7 @@ const Home = () => {
       {/* main section */}
       <section className="w-full min-h-[600px]">
         <div
-          className="relative bg-cover  bg-center  w-full min-h-[600px]"
+          className="relative bg-cover  bg-top  w-full min-h-[600px]"
           style={{
             backgroundImage: `url(${image})`,
           }}
@@ -153,13 +153,13 @@ const Home = () => {
               <Carousel orientation="horizontal">
                 <CarouselContent>
                   {items.data.map((data) => (
-                    <CarouselItem key={data.id} className=" basis-1/3">
+                    <CarouselItem key={data.id} className=" basis-1/3 md:basis-1/4 lg:basis-1/5">
                       <Card movie={data} />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className="hidden lg:flex" />
+                <CarouselNext className="hidden lg:flex"/>
               </Carousel>
             </div>
           </div>
