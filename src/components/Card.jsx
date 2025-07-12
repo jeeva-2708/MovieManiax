@@ -41,20 +41,20 @@ const Card = ({ movie }) => {
           <img src={image} alt={title} className="rounded-xl " />
         </figure>
         <div className="card-body  p-1 lg:p-2 ">
-          <h2 className="card-title text-sm   lg:text-base line-clamp-1 font-inter font-bold italic lg:pl-1">{title || name}</h2>
-          <div className="flex gap-1 flex-nowrap overflow-hidden ">
+          <h2 className="card-title text-base   lg:text-base line-clamp-1 font-inter font-bold italic pl-1 lg:pl-1">{title || name}</h2>
+          <div className="flex gap-3 flex-nowrap overflow-hidden ">
             {genre_ids.map((movieGenreId , index) => {
               if (index >= 2) return null
               const matchedGenre = genres.find(
                 (item) => item.id === movieGenreId
               );
               return matchedGenre ? (
-                <span className="bg-black text-white text-xs lg:font-medium p-1  rounded-md  whitespace-nowrap" key={matchedGenre.id}>{matchedGenre.name}</span>
+                <span className="bg-[#000000] text-[#F5F5F5] text-xs p-1 lg:font-medium   rounded-md  whitespace-nowrap" key={matchedGenre.id}>{matchedGenre.name}</span>
               ) : null;
             })}
           </div>
           <div className="lg:flex justify-between text-xs lg:pl-1">
-            <div>{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
+            <div className="text-[#F5F5F5] italic text-xs pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
             <div className="hidden lg:flex items-center gap-1"><span><img src="src\assets\Star.svg" alt="" /></span><span>{vote_average.toFixed(1)}/10</span></div>
           </div>
           

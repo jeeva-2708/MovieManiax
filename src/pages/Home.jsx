@@ -91,9 +91,9 @@ const Home = () => {
   return (
     <>
       {/* main section */}
-      <section className="w-full min-h-[600px]">
+      <section className="w-full h-[80vh]">
         <div
-          className="relative bg-cover  bg-top  w-full min-h-[600px]"
+          className="relative bg-cover bg-center  lg:bg-top  w-full h-full "
           style={{
             backgroundImage: `url(${image})`,
           }}
@@ -101,7 +101,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-black/50"></div>
 
           {randomMovie ? (
-            <div className="relative flex justify-center items-center min-h-[600px]">
+            <div className="relative flex justify-center items-center h-full">
               <div className="w-full max-w-screen-xl mx-auto px-4">
                 <div className="text-white flex flex-col justify-center items-center text-center">
                   <h1 className="font-bangers text-4xl mb-7">
@@ -153,13 +153,13 @@ const Home = () => {
               <Carousel orientation="horizontal">
                 <CarouselContent>
                   {items.data.map((data) => (
-                    <CarouselItem key={data.id} className=" basis-1/3 md:basis-1/4 lg:basis-1/5">
+                    <CarouselItem key={data.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
                       <Card movie={data} />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="hidden lg:flex" />
-                <CarouselNext className="hidden lg:flex"/>
+                <CarouselPrevious  className="hidden lg:flex  bg-black" />
+                <CarouselNext className="hidden lg:flex bg-black"/>
               </Carousel>
             </div>
           </div>
