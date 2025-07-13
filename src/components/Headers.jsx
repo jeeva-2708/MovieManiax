@@ -1,5 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import "flowbite";
+import { useEffect } from "react";
+import { initFlowbite } from "flowbite";
+
+useEffect(() => {
+  initFlowbite();
+}, []);
 
 const Headers = () => {
   const active =
