@@ -1,13 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import "flowbite";
-import { useEffect } from "react";
-import { initFlowbite } from "flowbite";
 
-useEffect(() => {
+import { initFlowbite } from "flowbite";
+import { useEffect } from "react";
+
+
+const Headers = () => {
+  useEffect(() => {
   initFlowbite();
 }, []);
 
-const Headers = () => {
   const active =
     "block py-2 px-3  text-[#4F46E5] rounded-sm  md:p-0 ";
   const inActive =
