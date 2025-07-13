@@ -42,7 +42,7 @@ const Card = ({ movie }) => {
           <img src={image} alt={title} className="rounded-xl " />
         </figure>
         <div className="card-body  p-1 lg:p-2 ">
-          <h2 className="card-title text-base   lg:text-base line-clamp-1 font-inter font-bold italic pl-1 lg:pl-1">{title || name}</h2>
+          <h2 className="card-title text-sm  lg:text-base line-clamp-1 font-inter font-bold italic pl-1 lg:pl-1">{title || name}</h2>
           <div className="flex gap-3 flex-nowrap overflow-hidden ">
             {genre_ids.map((movieGenreId , index) => {
               if (index >= 2) return null
