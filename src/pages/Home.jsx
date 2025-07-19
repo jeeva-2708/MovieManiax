@@ -11,9 +11,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Card from "@/components/Card";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [trendingEndpoint, setTrendingEndpoint] = useState("/trending/movie/day");
+  const [trendingEndpoint, setTrendingEndpoint] = useState("/trending/all/day");
   const [popularEndpoint, setPopularEndpoint] = useState("/movie/popular");
   const [topRatedEndpoint, setTopRatedEndpoint] = useState("/movie/top_rated");
 
@@ -27,13 +28,13 @@ const Home = () => {
     Popular: "Movie",
     "Top Rated": "Movie",
   });
-
+  
   const [image, setImage] = useState();
   const [randomMovie, setRandomMovie] = useState();
 
   useEffect(() => {
     setTrendingEndpoint(
-      selected.Trending === "Day" ? "/trending/movie/day" : "/trending/movie/week"
+      selected.Trending === "Day" ? "/trending/all/day" : "/trending/all/week"
     );
     setPopularEndpoint(
       selected.Popular === "Movie" ? "/movie/popular" : "/tv/popular"
@@ -66,6 +67,8 @@ const Home = () => {
       data: topRated,
     },
   ];
+ 
+
 
   useEffect(() => {
     if (mainSec.length === 0) return;
@@ -78,6 +81,7 @@ const Home = () => {
       setImage(`https://image.tmdb.org/t/p/original/${random.backdrop_path}`);
     }
     randomImage();
+   
 
     // then runs continuesly
     const interval = setInterval(() => {
@@ -87,6 +91,9 @@ const Home = () => {
     }, 60000);
     return () => clearInterval(interval);
   }, [mainSec]);
+
+ 
+
 
   return (
     <>
@@ -98,7 +105,8 @@ const Home = () => {
             backgroundImage: `url(${image})`,
           }}
         >
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-black/85"></div>
+          <div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-b from-transparent to-[#0B0C10] pointer-events-none z-20"></div>
 
           {randomMovie ? (
             <div className="relative flex justify-center items-center h-full">
@@ -110,9 +118,11 @@ const Home = () => {
                   <p className="w-3/4 font-inter mb-7">
                     {randomMovie.overview}
                   </p>
+                  <Link to={`/movie/${randomMovie.id}`}>
                   <button className="btn bg-[#000000] text-white rounded-xl w-52 text-base">
                     Read More
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -29,14 +29,14 @@ const Headers = () => {
 
     {
       id: "3",
-      to: "/TvShows",
+      to: "/tvShows",
       name: "TV shows",
     },
   ];
 
   return (
-    <div className="bg-[#121418]">
-   <nav className="  bg-[#121418]">
+    <div className="bg-[#121418] ">
+   <nav className="  bg-[#121418] fixed top-0 left-0 w-full z-50">
         <div className=" flex flex-wrap items-center justify-between p-4 md:p-0 w-full max-w-screen-xl mx-auto px-4">
           <Link
             to='/'
@@ -157,6 +157,7 @@ const Headers = () => {
               <li key={nav.id}>
                 <NavLink
                   to={nav.to}
+                  end
                   className={({ isActive }) => (isActive ? active : inActive)}
                   aria-current="page"
                 >

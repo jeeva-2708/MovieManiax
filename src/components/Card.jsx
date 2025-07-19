@@ -1,13 +1,16 @@
 import { useState, useEffect, useContext } from "react";
 import GenreContext from "../context/GenreContext";
 import Star from "@/assets/Star.svg"
+import { Link } from "react-router-dom";
 
 const Card = ({ movie }) => {
   const { id, title, name, poster_path, genre_ids, overview, first_air_date, release_date, vote_average } = movie;
    
+  const  media_type = title ? 'movie' : 'tv';
   
   const { fetchGenres } = useContext(GenreContext);
   const [genres, setGenres] = useState([]);
+  
 
   useEffect(() => {
     const getGenres = async () => {
@@ -37,6 +40,7 @@ const Card = ({ movie }) => {
 
   return (
     <>
+    <Link to={`/${media_type}/${id}`}>
       <div className="card w-full h-full   shadow-sm ">
         <figure className="">
           <img src={image} alt={title} className="rounded-xl " />
@@ -61,6 +65,8 @@ const Card = ({ movie }) => {
           
         </div>
       </div>
+    </Link>
+      
     </>
   );
 };
