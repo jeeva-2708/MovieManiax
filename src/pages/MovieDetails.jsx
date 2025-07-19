@@ -119,7 +119,7 @@ const MovieDetails = ({ apiPath }) => {
         <div className="relative z-20  max-w-screen-xl mx-auto px-4  pt-28">
           <div className=" md:flex  gap-10">
             {/* poster_path */}
-            <div className="  w-[408px] h-[612px]  md:w-[455px] md:h-[682px] mx-auto">
+            <div className="  max-w-[408px] max-h-[612px]  md:w-[455px] md:h-[682px] mx-auto">
               <img src={posterImg} className=" rounded-3xl" alt="" />
             </div>
             {/* details */}
@@ -131,7 +131,7 @@ const MovieDetails = ({ apiPath }) => {
                 {tagline}
               </span>
               {/* genres */}
-              <div className="flex gap-2 mb-1">
+              <div className="flex flex-wrap gap-2 mb-1">
                 {genres?.map((genre) => (
                   <span className="bg-black rounded-lg p-1" key={genre.id}>
                     {genre.name}

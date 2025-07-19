@@ -25,6 +25,9 @@ https://api.themoviedb.org/3/tv/series_id
 //Similar 
 https://api.themoviedb.org/3/tv/series_id/similar
 
+//Recommendations
+https://api.themoviedb.org/3/tv/series_id/recommendations
+
 
 //Up coming
 https://api.themoviedb.org/3/movie/upcoming
