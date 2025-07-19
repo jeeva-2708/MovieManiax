@@ -160,7 +160,10 @@ const Home = () => {
               </div>
             </div>
             <div>
-              <Carousel orientation="horizontal">
+              <Carousel orientation="horizontal"  opts={{
+    align: "start",
+    dragFree: true, 
+  }}>
                 <CarouselContent>
                   {items.data.map((data) => (
                     <CarouselItem key={data.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">

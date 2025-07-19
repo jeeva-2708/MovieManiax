@@ -63,7 +63,9 @@ const MovieDetails = ({ apiPath }) => {
     vote_average,
     name,
     status,
+    first_air_date,
   } = data;
+  const releaseDate = release_date || first_air_date
   const formatRuntime = (runtime) => {
     if (!runtime || typeof runtime !== "number") return "Unknown";
 
@@ -117,13 +119,13 @@ const MovieDetails = ({ apiPath }) => {
         </div>
 
         <div className="relative z-20  max-w-screen-xl mx-auto px-4  pt-28">
-          <div className=" md:flex  gap-10">
+          <div className=" lg:flex  gap-10">
             {/* poster_path */}
             <div className="  max-w-[408px] max-h-[612px]  md:w-[455px] md:h-[682px] mx-auto">
               <img src={posterImg} className=" rounded-3xl" alt="" />
             </div>
             {/* details */}
-            <div className="w-full  text-white pt-6 mb-10 md:mb-0">
+            <div className="w-full  text-white pt-6 mb-10 lg:mb-0">
               <h3 className=" text-white font-bangers text-2xl ">
                 {title || name}
               </h3>
@@ -159,12 +161,12 @@ const MovieDetails = ({ apiPath }) => {
                 {data && (
                   <div className="flex flex-col md:flex-row items-center  gap-2 ">
                     <span className="font-semibold text-xl">Release Date:</span>
-                    <span>{release_date ? formatDate(release_date) : "Unknown"}</span>
+                    <span>{releaseDate ? formatDate(releaseDate) : "Unknown"}</span>
                   </div>
                 )}
                 <div className="flex flex-col md:flex-row items-center  gap-2">
                   <span className="font-semibold text-xl">Runtime:</span>
-                  <span>{formatRuntime(runtime)}</span>
+                  <span>{formatRuntime(runtime )}</span>
                 </div>
               </div>
               {/* line */}
@@ -193,7 +195,10 @@ const MovieDetails = ({ apiPath }) => {
           <h2 className="font-bangers text-3xl">Similar</h2>
         </div>
         <div>
-          <Carousel orientation="horizontal">
+          <Carousel orientation="horizontal"  opts={{
+    align: "start",
+    dragFree: true, // <--- enables smooth, free scrolling
+  }}>
             <CarouselContent>
               {similar.map((data) => (
                 <CarouselItem
@@ -204,8 +209,8 @@ const MovieDetails = ({ apiPath }) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden lg:flex  bg-black" />
-            <CarouselNext className="hidden lg:flex bg-black" />
+            <CarouselPrevious className="hidden xl:flex  bg-black" />
+            <CarouselNext className="hidden xl:flex bg-black" />
           </Carousel>
         </div>
       </section>
@@ -215,7 +220,10 @@ const MovieDetails = ({ apiPath }) => {
           <h2 className="font-bangers text-3xl">Recommendation</h2>
         </div>
         <div>
-          <Carousel orientation="horizontal">
+          <Carousel orientation="horizontal"  opts={{
+    align: "start",
+    dragFree: true, // <--- enables smooth, free scrolling
+  }}>
             <CarouselContent>
               {recommendation.map((data) => (
                 <CarouselItem
@@ -226,8 +234,8 @@ const MovieDetails = ({ apiPath }) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden lg:flex  bg-black" />
-            <CarouselNext className="hidden lg:flex bg-black" />
+            <CarouselPrevious className="hidden xl:flex  bg-black" />
+            <CarouselNext className="hidden xl:flex bg-black" />
           </Carousel>
         </div>
       </section>
