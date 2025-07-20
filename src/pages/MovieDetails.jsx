@@ -21,32 +21,37 @@ const MovieDetails = ({ apiPath }) => {
   const [recommendation, setRecommendation] = useState([]);
   useEffect(() => {
     async function fetchMovie() {
-      const [detailsRes, creditsRes, similarRes, recommendationsRes] = await Promise.all([
-        fetch(`https://api.themoviedb.org/3/${apiPath}/${params.id}`, options),
-        fetch(
-          `https://api.themoviedb.org/3/${apiPath}/${params.id}/credits`,
-          options
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${apiPath}/${params.id}/similar`,
-          options
-        ),fetch(
-          `https://api.themoviedb.org/3/${apiPath}/${params.id}/recommendations`,
-          options
-        ),
-      ]);
+      const [detailsRes, creditsRes, similarRes, recommendationsRes] =
+        await Promise.all([
+          fetch(
+            `https://api.themoviedb.org/3/${apiPath}/${params.id}`,
+            options
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/${apiPath}/${params.id}/credits`,
+            options
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/${apiPath}/${params.id}/similar`,
+            options
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/${apiPath}/${params.id}/recommendations`,
+            options
+          ),
+        ]);
 
-      const [details, credits, simliarDetails, recommendations] = await Promise.all([
-         detailsRes.json(),
-         creditsRes.json(),
-         similarRes.json(),
-         recommendationsRes.json(),
-      ]);
+      const [details, credits, simliarDetails, recommendations] =
+        await Promise.all([
+          detailsRes.json(),
+          creditsRes.json(),
+          similarRes.json(),
+          recommendationsRes.json(),
+        ]);
       setData(details);
       setCredits(credits.crew);
       setSimilar(simliarDetails.results);
       setRecommendation(recommendations.results);
-      
     }
     fetchMovie();
   }, [apiPath, params]);
@@ -65,7 +70,7 @@ const MovieDetails = ({ apiPath }) => {
     status,
     first_air_date,
   } = data;
-  const releaseDate = release_date || first_air_date
+  const releaseDate = release_date || first_air_date;
   const formatRuntime = (runtime) => {
     if (!runtime || typeof runtime !== "number") return "Unknown";
 
@@ -74,7 +79,6 @@ const MovieDetails = ({ apiPath }) => {
 
     return `${hours}h ${minutes}m`;
   };
-  
 
   function formatDate(dateString) {
     const [year, month, day] = dateString?.split("-");
@@ -100,8 +104,10 @@ const MovieDetails = ({ apiPath }) => {
   }
 
   const director = credits.find((person) => person.job === "Director");
-  const writer = credits.find((person) => person.job === "Writer");
-  const directorName = director?.name || "Unknown";
+  const writer = credits.find(
+    (person) => person.job === "Writer" || "Original Concept"
+  );
+  const directorName = director?.name;
   const WriterName = writer?.name || "Unknown";
   const bgImage = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
   const posterImg = `https://image.tmdb.org/t/p/original/${poster_path}`;
@@ -161,21 +167,29 @@ const MovieDetails = ({ apiPath }) => {
                 {data && (
                   <div className="flex flex-col md:flex-row items-center  gap-2 ">
                     <span className="font-semibold text-xl">Release Date:</span>
-                    <span>{releaseDate ? formatDate(releaseDate) : "Unknown"}</span>
+                    <span>
+                      {releaseDate ? formatDate(releaseDate) : "Unknown"}
+                    </span>
                   </div>
                 )}
-                <div className="flex flex-col md:flex-row items-center  gap-2">
-                  <span className="font-semibold text-xl">Runtime:</span>
-                  <span>{formatRuntime(runtime )}</span>
-                </div>
+                {runtime && (
+                  <div className="flex flex-col md:flex-row items-center  gap-2">
+                    <span className="font-semibold text-xl">Runtime:</span>
+                    <span>{formatRuntime(runtime)}</span>
+                  </div>
+                )}
               </div>
-              {/* line */}
-              <div className="h-[1px] w-full bg-[#787878]"></div>
-              {/* Director */}
-              <div className="flex items-center  gap-2 my-5">
-                <span className="font-semibold text-xl">Director:</span>{" "}
-                <span>{directorName}</span>
-              </div>
+              {directorName && (
+                <>
+                  {/* line */}
+                  <div className="h-[1px] w-full bg-[#787878]"></div>
+                  {/* Director */}
+                  <div className="flex items-center  gap-2 my-5">
+                    <span className="font-semibold text-xl">Director:</span>{" "}
+                    <span>{directorName}</span>
+                  </div>
+                </>
+              )}
               {/* line */}
               <div className="h-[1px] w-full bg-[#787878]"></div>
               {/* Writer */}
@@ -190,55 +204,67 @@ const MovieDetails = ({ apiPath }) => {
         </div>
       </section>
       {/* similar */}
-      <section className=" text-white mb-10 max-w-screen-xl mx-auto px-4 h-full">
-        <div className="mb-5 pl-3">
-          <h2 className="font-bangers text-3xl">Similar</h2>
-        </div>
-        <div>
-          <Carousel orientation="horizontal"  opts={{
-    align: "start",
-    dragFree: true, // <--- enables smooth, free scrolling
-  }}>
-            <CarouselContent>
-              {similar.map((data) => (
-                <CarouselItem
-                  key={data.id}
-                  className="basis-1/3 md:basis-1/4 lg:basis-1/5"
-                >
-                  <Card movie={data} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden xl:flex  bg-black" />
-            <CarouselNext className="hidden xl:flex bg-black" />
-          </Carousel>
-        </div>
-      </section>
+      {similar?.length > 0 && (
+        
+          <section className=" text-white mb-10 max-w-screen-xl mx-auto px-4 h-full">
+            <div className="mb-5 pl-3">
+              <h2 className="font-bangers text-3xl">Similar</h2>
+            </div>
+            <div>
+              <Carousel
+                orientation="horizontal"
+                opts={{
+                  align: "start",
+                  dragFree: true, // <--- enables smooth, free scrolling
+                }}
+              >
+                <CarouselContent>
+                  {similar.map((data) => (
+                    <CarouselItem
+                      key={data.id}
+                      className="basis-1/3 md:basis-1/4 lg:basis-1/5"
+                    >
+                      <Card movie={data} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden xl:flex  bg-black" />
+                <CarouselNext className="hidden xl:flex bg-black" />
+              </Carousel>
+            </div>
+          </section>
+        
+      )}
       {/* recommendation */}
-      <section className=" text-white mb-10 max-w-screen-xl mx-auto px-4 h-full">
-        <div className="mb-5 pl-3">
-          <h2 className="font-bangers text-3xl">Recommendation</h2>
-        </div>
-        <div>
-          <Carousel orientation="horizontal"  opts={{
-    align: "start",
-    dragFree: true, // <--- enables smooth, free scrolling
-  }}>
-            <CarouselContent>
-              {recommendation.map((data) => (
-                <CarouselItem
-                  key={data.id}
-                  className="basis-1/3 md:basis-1/4 lg:basis-1/5"
-                >
-                  <Card movie={data} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden xl:flex  bg-black" />
-            <CarouselNext className="hidden xl:flex bg-black" />
-          </Carousel>
-        </div>
-      </section>
+      {recommendation?.length > 0 && (
+        <section className=" text-white mb-10 max-w-screen-xl mx-auto px-4 h-full">
+          <div className="mb-5 pl-3">
+            <h2 className="font-bangers text-3xl">Recommendation</h2>
+          </div>
+          <div>
+            <Carousel
+              orientation="horizontal"
+              opts={{
+                align: "start",
+                dragFree: true, // <--- enables smooth, free scrolling
+              }}
+            >
+              <CarouselContent>
+                {recommendation.map((data) => (
+                  <CarouselItem
+                    key={data.id}
+                    className="basis-1/3 md:basis-1/4 lg:basis-1/5"
+                  >
+                    <Card movie={data} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden xl:flex  bg-black" />
+              <CarouselNext className="hidden xl:flex bg-black" />
+            </Carousel>
+          </div>
+        </section>
+      )}
     </>
   );
 };

@@ -22,6 +22,7 @@ const Card = ({ movie }) => {
   }, [fetchGenres]);
 
   function formatDate(dateString) {
+    if (!dateString) return "Unknown";
   const [year, month, day] = dateString.split("-");
 
   const monthNames = [
@@ -40,7 +41,8 @@ const Card = ({ movie }) => {
 
   return (
     <>
-    <Link to={`/${media_type}/${id}`}>
+ 
+     <Link to={`/${media_type}/${id}`}>
       <div className="card w-full h-full   shadow-sm ">
         <figure className="">
           <img src={image} alt={title} className="rounded-xl " />
@@ -48,7 +50,7 @@ const Card = ({ movie }) => {
         <div className="card-body  p-1 lg:p-2 ">
           <h2 className="card-title text-sm  lg:text-base line-clamp-1 font-inter font-bold italic pl-1 lg:pl-1">{title || name}</h2>
           <div className="flex gap-3 flex-nowrap overflow-hidden ">
-            {genre_ids.map((movieGenreId , index) => {
+            {genre_ids?.map((movieGenreId , index) => {
               if (index >= 2) return null
               const matchedGenre = genres.find(
                 (item) => item.id === movieGenreId
@@ -60,12 +62,13 @@ const Card = ({ movie }) => {
           </div>
           <div className="lg:flex justify-between text-xs lg:pl-1">
             <div className="text-[#F5F5F5] italic text-[10px] lg:text-xs pl-1">{release_date ? formatDate(release_date) : formatDate(first_air_date)}</div>
-            <div className="hidden lg:flex items-center gap-1"><span><img src={Star} alt="" /></span><span>{vote_average.toFixed(1)}/10</span></div>
+            <div className="hidden lg:flex items-center gap-1"><span><img src={Star} alt="" /></span><span>{vote_average && vote_average.toFixed(1)}/10</span></div>
           </div>
           
         </div>
       </div>
     </Link>
+
       
     </>
   );

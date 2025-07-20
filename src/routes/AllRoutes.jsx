@@ -11,7 +11,7 @@ const AllRoutes = () => {
             <Route path="tv/:id" element={<MovieDetails apiPath={"tv"}/>} />
             <Route path="movie" element={<Movie/>} />
             <Route path="tvShows" element={<TvShows/>} />
-            <Route path="search" element={<Search/>} />
+            <Route path="search" element={<Search apiPath={'/search/multi'}/>} />
             <Route path="*" element={<PageNotFound/>} />
         </Routes>
     </>
