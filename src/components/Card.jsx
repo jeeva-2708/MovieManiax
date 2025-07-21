@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import GenreContext from "../context/GenreContext";
 import Star from "@/assets/Star.svg"
-
+import NoImage from "../assets/No_picture_available.png";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -43,7 +43,7 @@ const Card = ({ movie }) => {
 
 
   const image = `https://image.tmdb.org/t/p/original/${poster_path}`;
-  const noImage = "./src/assets/No_picture_available.png"
+ 
   return (
     <>
     
@@ -51,7 +51,7 @@ const Card = ({ movie }) => {
      <Link to={`/${media_type}/${id}`}>
       <div className="card flex flex-col justify-between h-full   shadow-sm ">
         <div className="w-full aspect-[2/3]  rounded-xl" >
-          {<img src={poster_path ? image : noImage } loading="lazy" alt={title} className="rounded-xl " /> }
+          {<img src={poster_path ? image : NoImage } loading="lazy" alt={title} className="rounded-xl " /> }
         </div>
         <div className="card-body  p-1 lg:p-2 ">
           <h2 className="card-title text-sm  lg:text-base line-clamp-1 font-inter font-bold italic pl-1 lg:pl-1">{title || name}</h2>

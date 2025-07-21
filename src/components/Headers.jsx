@@ -36,10 +36,12 @@ const Headers = () => {
     e.preventDefault();
     const queryTerm = e.target.search.value;
     e.target.reset();
+    
+
     return navigate(`/search?query=${queryTerm}`);
   };
 
-  
+  document
 
   return (
     <div className="bg-[#121418] ">
@@ -170,6 +172,7 @@ const Headers = () => {
                 <li key={nav.id}>
                   <NavLink
                     to={nav.to}
+                    end
                     className={({ isActive }) => (isActive ? active : inActive)}
                     aria-current="page"
                   >

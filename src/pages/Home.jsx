@@ -103,21 +103,21 @@ const Home = () => {
             backgroundImage: `url(${image})`,
           }}
         >
-          <div className="absolute inset-0 bg-black/85"></div>
+          <div className="absolute inset-0 bg-black/75"></div>
           <div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-b from-transparent to-[#0B0C10] pointer-events-none z-20"></div>
 
           {randomMovie ? (
             <div className="relative flex justify-center items-center h-full">
               <div className="w-full max-w-screen-xl mx-auto px-4">
                 <div className="text-white flex flex-col justify-center items-center text-center">
-                  <h1 className="font-bangers text-4xl mb-7">
+                  <h1 className="font-bangers text-2xl md:text-4xl mb-7">
                     {randomMovie.name || randomMovie.title}
                   </h1>
-                  <p className="w-3/4 font-inter mb-7">
+                  <p className="w-3/4 text-sm md:text-base line-clamp-4 font-inter mb-7">
                     {randomMovie.overview}
                   </p>
                   <Link to={`/movie/${randomMovie.id}`}>
-                    <button className="btn bg-[#000000] text-white rounded-xl w-52 text-base">
+                    <button className="btn bg-[#1a1a1a]/80 text-white rounded-xl w-52 text-base">
                       Read More
                     </button>
                   </Link>

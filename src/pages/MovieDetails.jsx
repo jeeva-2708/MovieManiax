@@ -3,6 +3,8 @@ import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
 import Star from "@/assets/Star.svg";
 import "flowbite";
+import DetailsSkeleton from "@/components/DetailsSkeleton";
+import NoImage from "../assets/No_picture_available.png";
 import {
   Carousel,
   CarouselContent,
@@ -21,6 +23,8 @@ const MovieDetails = ({ apiPath }) => {
   const [credits, setCredits] = useState([]);
   const [similar, setSimilar] = useState([]);
   const [recommendation, setRecommendation] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function fetchMovie() {
       const [detailsRes, creditsRes, similarRes, recommendationsRes] =
@@ -54,6 +58,7 @@ const MovieDetails = ({ apiPath }) => {
       setCredits(credits.crew);
       setSimilar(simliarDetails.results);
       setRecommendation(recommendations.results);
+      setLoading(false);
     }
     fetchMovie();
   }, [apiPath, params]);
@@ -72,6 +77,8 @@ const MovieDetails = ({ apiPath }) => {
     status,
     first_air_date,
   } = data;
+
+
   const releaseDate = release_date || first_air_date;
   const formatRuntime = (runtime) => {
     if (!runtime || typeof runtime !== "number") return "Unknown";
@@ -113,6 +120,12 @@ const MovieDetails = ({ apiPath }) => {
   const WriterName = writer?.name || "Unknown";
   const bgImage = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
   const posterImg = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  
+
+  if(loading){
+    return <DetailsSkeleton/>
+  }
+
   return (
     <>
       <section className="relative w-full ">
@@ -122,7 +135,7 @@ const MovieDetails = ({ apiPath }) => {
             backgroundImage: `url(${bgImage})`,
           }}
         >
-          <div className="absolute inset-0 bg-black/85"></div>
+          <div className="absolute inset-0 bg-black/70"></div>
           <div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-b from-transparent to-[#0B0C10] pointer-events-none z-20"></div>
         </div>
 
@@ -130,7 +143,7 @@ const MovieDetails = ({ apiPath }) => {
           <div className=" lg:flex  gap-10">
             {/* poster_path */}
             <div className="  max-w-[408px] max-h-[612px]  md:w-[455px] md:h-[682px] mx-auto">
-              <img loading='lazy' src={posterImg} className=" rounded-3xl" alt="" />
+              <img loading='lazy' src={poster_path? posterImg : NoImage} className=" rounded-3xl" alt="" />
             </div>
             {/* details */}
             <div className="w-full  text-white pt-6 mb-10 lg:mb-0">
