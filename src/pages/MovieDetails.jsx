@@ -1,5 +1,5 @@
 import { options } from "@/utils/Options";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
 import Star from "@/assets/Star.svg";
 import "flowbite";
@@ -10,7 +10,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Card from "@/components/Card";
+
+import CardSkeleton from "@/components/CardSkeleton";
+const LazyCard = React.lazy(() => import("@/components/Card"));
 
 const MovieDetails = ({ apiPath }) => {
   const params = useParams();
@@ -128,7 +130,7 @@ const MovieDetails = ({ apiPath }) => {
           <div className=" lg:flex  gap-10">
             {/* poster_path */}
             <div className="  max-w-[408px] max-h-[612px]  md:w-[455px] md:h-[682px] mx-auto">
-              <img src={posterImg} className=" rounded-3xl" alt="" />
+              <img loading='lazy' src={posterImg} className=" rounded-3xl" alt="" />
             </div>
             {/* details */}
             <div className="w-full  text-white pt-6 mb-10 lg:mb-0">
@@ -215,7 +217,7 @@ const MovieDetails = ({ apiPath }) => {
                 orientation="horizontal"
                 opts={{
                   align: "start",
-                  dragFree: true, // <--- enables smooth, free scrolling
+                  dragFree: true, 
                 }}
               >
                 <CarouselContent>
@@ -224,7 +226,10 @@ const MovieDetails = ({ apiPath }) => {
                       key={data.id}
                       className="basis-1/3 md:basis-1/4 lg:basis-1/5"
                     >
-                      <Card movie={data} />
+                      <Suspense fallback={<CardSkeleton />}>
+                        <LazyCard movie={data} />
+                      </Suspense>
+                      
                     </CarouselItem>
                   ))}
                 </CarouselContent>
@@ -246,7 +251,7 @@ const MovieDetails = ({ apiPath }) => {
               orientation="horizontal"
               opts={{
                 align: "start",
-                dragFree: true, // <--- enables smooth, free scrolling
+                dragFree: true, 
               }}
             >
               <CarouselContent>
@@ -255,7 +260,7 @@ const MovieDetails = ({ apiPath }) => {
                     key={data.id}
                     className="basis-1/3 md:basis-1/4 lg:basis-1/5"
                   >
-                    <Card movie={data} />
+                    <LazyCard movie={data} />
                   </CarouselItem>
                 ))}
               </CarouselContent>

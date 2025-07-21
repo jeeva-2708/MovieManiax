@@ -1,9 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import GenreContext from "../context/GenreContext";
 import Star from "@/assets/Star.svg"
+
 import { Link } from "react-router-dom";
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Card = ({ movie }) => {
+
+
+
   const { id, title, name, poster_path, genre_ids, overview, first_air_date, release_date, vote_average } = movie;
    
   const  media_type = title ? 'movie' : 'tv';
@@ -38,15 +43,16 @@ const Card = ({ movie }) => {
 
 
   const image = `https://image.tmdb.org/t/p/original/${poster_path}`;
-
+  const noImage = "./src/assets/No_picture_available.png"
   return (
     <>
+    
  
      <Link to={`/${media_type}/${id}`}>
-      <div className="card w-full h-full   shadow-sm ">
-        <figure className="">
-          <img src={image} alt={title} className="rounded-xl " />
-        </figure>
+      <div className="card flex flex-col justify-between h-full   shadow-sm ">
+        <div className="w-full aspect-[2/3]  rounded-xl" >
+          {<img src={poster_path ? image : noImage } loading="lazy" alt={title} className="rounded-xl " /> }
+        </div>
         <div className="card-body  p-1 lg:p-2 ">
           <h2 className="card-title text-sm  lg:text-base line-clamp-1 font-inter font-bold italic pl-1 lg:pl-1">{title || name}</h2>
           <div className="flex gap-3 flex-nowrap overflow-hidden ">
@@ -69,7 +75,7 @@ const Card = ({ movie }) => {
       </div>
     </Link>
 
-      
+         
     </>
   );
 };

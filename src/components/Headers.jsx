@@ -39,6 +39,8 @@ const Headers = () => {
     return navigate(`/search?query=${queryTerm}`);
   };
 
+  
+
   return (
     <div className="bg-[#121418] ">
       <nav className=" fixed top-0 left-0 w-full z-50 bg-[#121418]">

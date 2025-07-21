@@ -12,6 +12,10 @@ import {
 } from "@/components/ui/carousel";
 import Card from "@/components/Card";
 import { Link } from "react-router-dom";
+import { Skeleton } from "@/components/ui/skeleton";
+import CardSkeleton from "@/components/CardSkeleton";
+import React, { Suspense } from "react";
+const LazyComponent = React.lazy(() => import("@/components/Card"));
 
 const Home = () => {
   const [trendingEndpoint, setTrendingEndpoint] = useState("/trending/all/day");
@@ -28,7 +32,7 @@ const Home = () => {
     Popular: "Movie",
     "Top Rated": "Movie",
   });
-  
+
   const [image, setImage] = useState();
   const [randomMovie, setRandomMovie] = useState();
 
@@ -67,8 +71,6 @@ const Home = () => {
       data: topRated,
     },
   ];
- 
-
 
   useEffect(() => {
     if (mainSec.length === 0) return;
@@ -81,7 +83,6 @@ const Home = () => {
       setImage(`https://image.tmdb.org/t/p/original/${random.backdrop_path}`);
     }
     randomImage();
-   
 
     // then runs continuesly
     const interval = setInterval(() => {
@@ -91,9 +92,6 @@ const Home = () => {
     }, 60000);
     return () => clearInterval(interval);
   }, [mainSec]);
-
- 
-
 
   return (
     <>
@@ -119,9 +117,9 @@ const Home = () => {
                     {randomMovie.overview}
                   </p>
                   <Link to={`/movie/${randomMovie.id}`}>
-                  <button className="btn bg-[#000000] text-white rounded-xl w-52 text-base">
-                    Read More
-                  </button>
+                    <button className="btn bg-[#000000] text-white rounded-xl w-52 text-base">
+                      Read More
+                    </button>
                   </Link>
                 </div>
               </div>
@@ -160,19 +158,29 @@ const Home = () => {
               </div>
             </div>
             <div>
-              <Carousel orientation="horizontal"  opts={{
-    align: "start",
-    dragFree: true, 
-  }}>
+              <Carousel
+                orientation="horizontal"
+                opts={{
+                  align: "start",
+                  dragFree: true,
+                }}
+              >
                 <CarouselContent>
                   {items.data.map((data) => (
-                    <CarouselItem key={data.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
-                      <Card movie={data} />
+                    <CarouselItem
+                      key={data.id}
+                      className="basis-1/3 md:basis-1/4 lg:basis-1/5"
+                    >
+                      <Suspense fallback={<CardSkeleton />}>
+                        <LazyComponent movie={data} />
+                      </Suspense>
+                      
+                      
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious  className="hidden lg:flex  bg-black" />
-                <CarouselNext className="hidden lg:flex bg-black"/>
+                <CarouselPrevious className="hidden lg:flex  bg-black" />
+                <CarouselNext className="hidden lg:flex bg-black" />
               </Carousel>
             </div>
           </div>
