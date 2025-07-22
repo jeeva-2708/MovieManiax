@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "flowbite";
 import { initFlowbite } from "flowbite";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Headers = () => {
   useEffect(() => {
@@ -31,12 +31,37 @@ const Headers = () => {
     },
   ];
 
+
+  const dropdownRef = useRef(null); // for navbar-search
+  const toggleBtnRef = useRef(null); // for hamburger button
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        !toggleBtnRef.current.contains(event.target)
+      ) {
+        dropdownRef.current.classList.add("hidden");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const queryTerm = e.target.search.value;
     e.target.reset();
-    
+      if (dropdownRef.current) {
+    dropdownRef.current.classList.add("hidden");
+  }
 
     return navigate(`/search?query=${queryTerm}`);
   };
@@ -58,6 +83,7 @@ const Headers = () => {
 
           <div className="flex md:order-2">
             <button
+              ref={toggleBtnRef}
               type="button"
               data-collapse-toggle="navbar-search"
               aria-controls="navbar-search"
@@ -136,6 +162,7 @@ const Headers = () => {
             </button>
           </div>
           <div
+             ref={dropdownRef}
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-search"
           >

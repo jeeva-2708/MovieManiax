@@ -52,12 +52,12 @@ const Search = ({ apiPath }) => {
       setPage((prev) => prev + 1);
     }
   };
-  console.log(data);
+ 
 
   return (
     <>
     {data.length > 0 ? <section className="w-full  text-white max-w-screen-xl mx-auto px-4  flex flex-wrap  py-20">
-        <h2 className="p-3 pb-7 font-inter font-bold text-2xl">{`Search results of "${queryTerm}"`}</h2>
+        <h2 className="p-3 pb-7 font-inter font-bold text-lg md:text-2xl">{`Search results of "${queryTerm}"`}</h2>
         <Suspense
           fallback={
             <div className="flex justify-center items-center h-screen w-full">
