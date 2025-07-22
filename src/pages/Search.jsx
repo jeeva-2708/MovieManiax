@@ -88,7 +88,7 @@ const Search = ({ apiPath }) => {
         </Suspense>
       </section> : 
       <section className="w-full h-screen text-white max-w-screen-xl mx-auto px-4  flex flex-wrap  py-20">
-        <h2 className="p-3 pb-7 font-inter font-bold text-2xl">{`No results found for "${queryTerm}"`}</h2>
+        <h2 className="p-3 pb-7 font-inter font-bold text-lg md:text-2xl">{`No results found for "${queryTerm}"`}</h2>
         <div className="w-full h-full flex justify-center items-center">
             <DotLottieReact
             className="w-1/3 h-1/4 md:w-1/2 md:h-1/2"
