@@ -84,6 +84,7 @@ src/
 ├── hooks/          # Custom React hooks
 ├── App.jsx         # Root component
 ├── main.jsx        # ReactDOM entry
+```
 
 ## 🔐 .env Example
 
