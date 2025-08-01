@@ -108,7 +108,3 @@ VITE_TMDB_BEARER=your_tmdb_bearer_token_here
 
 ---
 
-### 📌 Tags
-
-#React #Vite #TailwindCSS #MovieApp #WebDevelopment #TMDB
-
